@@ -59,5 +59,3 @@ flowchart TD
    - Managed using tools installed on the bastion host.
 
 Use the above diagram as a reference for understanding the infrastructure layout and its dependencies.
-```
-
