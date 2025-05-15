@@ -1,0 +1,55 @@
+pipeline{
+    agent{
+        label 'AGENT'
+    }
+    options{
+        timeout(time: 30, unit: 'MINUTES')
+        disableConcurrentBuilds()
+        ansicolour('xterm')
+
+     }
+     parameters {
+        choice(name: 'ACTION', choices: ['apply' or 'destroy'], description: 'Select Action')
+     }
+     stages{
+        stage('Init and plan'){
+            steps {
+                withAWS(region: 'us-east-1', credentials: 'aws-creds'){
+                sh """
+                    cd 05eks
+                    terraform int -reconfigure
+                    terraform plan -out=tfplan
+                    """
+            }
+        }
+     }
+     stage('Apply or Destroy'){
+        steps{
+            withAWS(region: 'us-east-1', credentials: 'aws-creds'){
+                sh """
+                cd 05eks
+                if [ ${params.ACTION} =='apply']
+                then
+                    terraform apply -auto-approve tfplan
+                elif[ ${params.ACTION} == 'destroy']
+                then
+                    terraform destroy -auto-approve
+                fi
+                """
+            }
+        }
+     }
+    }
+    post{
+        always {
+            echo "this section will run always"
+
+        }
+        sucess{
+            echo "This section will run when pipeline is sucess"
+        }
+        failure{
+            "this section will run when pipeline is failure"
+        }
+    }
+}

@@ -1,6 +1,6 @@
 variable "zone_name" {
     default = "cheswini.shop"
-    type = "String"
+    type = string
     description = "CICD"
   
 }

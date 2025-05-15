@@ -1,9 +1,13 @@
 #!/bin/bash
 
-sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
-sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+sudo curl -o /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
 
-sudo yum install fontconfig java-21-openjdk
+sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+
+
+sudo yum install fontconfig java-21-
+sudo yum install jenkins -y
+
 
 
 #resize the disk from 20GB 

@@ -2,8 +2,8 @@ module "jenkins_master" {
     source = "terraform-aws-modules/ec2-instance/aws"
     name = "jenkins"
     instance_type = "t3.small"
-    vpc_security_group_ids = ["sg-0fea5e49e962e81c9"]
-    subnet_id = "subnet-0ea509ad4cba242d7"
+    vpc_security_group_ids = ["sg-014d4c94ac9274564"]
+    subnet_id = "subnet-0797e995cf3607749"
     ami = data.aws_ami.micro.id
     user_data = file("jenkins-master.sh")
     tags = {
@@ -29,8 +29,8 @@ module "jenkins_agent" {
     name = "jenkins_agent"
     ami = data.aws_ami.micro.id
     user_data = file("jenkins-agent.sh")
-    vpc_security_group_ids = ["sg-0fea5e49e962e81c9"]
-    subnet_id = "subnet-0ea509ad4cba242d7"
+    vpc_security_group_ids = ["sg-014d4c94ac9274564"]
+    subnet_id = "subnet-0797e995cf3607749"
     instance_type = "t3.micro"
     tags = {
         Name = "jenkins-agent"
